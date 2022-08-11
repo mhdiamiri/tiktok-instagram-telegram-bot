@@ -384,10 +384,10 @@ app.add_handler(MessageHandler(filters.PHOTO, other_types_of_message))
 app.add_handler(MessageHandler(filters.VIDEO, other_types_of_message))
 app.add_handler(MessageHandler(filters.VOICE, other_types_of_message))
 app.add_handler(MessageHandler(filters.VIDEO_NOTE, other_types_of_message))
-app.run_polling()
+#app.run_polling()
 
-"""app.run_webhook(listen="0.0.0.0",
+app.run_webhook(listen="0.0.0.0",
                       port=int(os.environ.get('PORT', 5000)),
                       url_path=token,
                       webhook_url=  "https://tiktokerr.herokuapp.com/" + token
-                      )"""
+                      )
