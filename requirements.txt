@@ -3,3 +3,4 @@ telegram
 requests
 wget
 tenacity
+psycopg2-binary
