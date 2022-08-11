@@ -1,6 +1,8 @@
-import sqlite3
 from settings import *
 import datetime
+import psycopg2
+
+DATABASE_URL = os.environ['DATABASE_URL']
 
 class DatabaseHandler:
 
@@ -8,7 +10,7 @@ class DatabaseHandler:
         pass
 
     async def new_user(self, user_id):
-        conn = sqlite3.connect("database.db")
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         cur = conn.cursor()
         cur.execute(
             f"""INSERT INTO users VALUES ({str(user_id)}, 0, 'n', 'n');"""
@@ -19,7 +21,7 @@ class DatabaseHandler:
         return
 
     async def set_user_state(self, user_id,  state:int):
-        conn = sqlite3.connect("database.db")
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')        
         cur = conn.cursor()
         cur.execute(f"""UPDATE users SET state='{state}' WHERE userid='{str(user_id)}';""")
         conn.commit()
@@ -27,7 +29,7 @@ class DatabaseHandler:
         conn.close()
 
     async def get_user_state(self, user_id):
-        conn = sqlite3.connect("database.db")
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         cur = conn.cursor() 
         cur.execute(f"""SELECT state FROM users WHERE userid='{str(user_id)}';""")
         res = cur.fetchone()
@@ -36,7 +38,7 @@ class DatabaseHandler:
         return res[0]
     
     async def get_instagram_username(self, user_id):
-        conn = sqlite3.connect("database.db")
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         cur = conn.cursor()
         cur.execute(f"""SELECT insta FROM users WHERE userid='{str(user_id)}';""")
         res = cur.fetchone()
@@ -45,7 +47,7 @@ class DatabaseHandler:
         return res[0]
 
     async def is_user(self, user_id):
-        conn = sqlite3.connect("database.db")
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         cur = conn.cursor()
         cur.execute(f"""SELECT * FROM users WHERE userid='{str(user_id)}';""")
         res = cur.fetchall()
@@ -56,7 +58,7 @@ class DatabaseHandler:
         return False, ()
 
     async def set_instagra_username(self, user_id, username):
-        conn = sqlite3.connect("database.db")
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         cur = conn.cursor()
         cur.execute(f"""UPDATE users SET insta='{username}' WHERE userid='{str(user_id)}';""")
         conn.commit()
@@ -65,7 +67,7 @@ class DatabaseHandler:
 
     async def wait_user(self, user_id):
         now = datetime.datetime.now()
-        conn = sqlite3.connect("database.db")
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         cur = conn.cursor()
         cur.execute(f"""UPDATE users SET lastused = '{now}' WHERE userid='{user_id}';""")
         conn.commit()
@@ -74,7 +76,7 @@ class DatabaseHandler:
         return
 
     async def all_users_id(self):
-        conn = sqlite3.connect("database.db")
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         cur = conn.cursor()
         cur.execute(f"""SELECT userid FROM users""")
         users = cur.fetchall()
@@ -84,3 +86,5 @@ class DatabaseHandler:
         for user in users:
             result.append(user[0])
         return result
+
+
