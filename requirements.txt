@@ -3,4 +3,3 @@ telegram
 requests
 wget
 tenacity
-sqlite3
