@@ -4,10 +4,24 @@ import psycopg2
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
+
 class DatabaseHandler:
 
     def __init__(self):
-        pass
+        try:
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require') 
+            cur = conn.cursor()
+            cur.execute("""CREATE TABLE users (
+                userid TEXT PRIMARY KEY,
+                state INT,
+                insta TEXT,
+                lastused TEXT
+);"""
+            )
+            cur.close()
+            conn.close()
+        except:
+            pass
 
     async def new_user(self, user_id):
         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
