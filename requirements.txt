@@ -4,3 +4,5 @@ requests
 wget
 tenacity
 psycopg2-binary
+instaloader
+validators
