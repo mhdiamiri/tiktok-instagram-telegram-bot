@@ -4,9 +4,9 @@ import os
 token = ""
 
 # database
-DATABASE_NAME  = "postgres"
-DATABASE_USERNAME = "mehdi"
-DATABASE_PASSWORD = "postgres"
+DATABASE_NAME  = ""
+DATABASE_USERNAME = ""
+DATABASE_PASSWORD = ""
 
 # instagram login
 SAVE_LOGIN_DIR = "logins/"
@@ -14,7 +14,7 @@ if not os.path.exists(SAVE_LOGIN_DIR):
     os.mkdir(SAVE_LOGIN_DIR)
 
 # server
-CONNECTION_POOL_SIZE = 128
+CONNECTION_POOL_SIZE = 1280
 
 # delay in seconds
 DELAY = 30
