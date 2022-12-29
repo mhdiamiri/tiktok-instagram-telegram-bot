@@ -1,7 +1,7 @@
 import os
 
 # telegram bot token
-token = "5559184957:AAEsgQ9jMLun-VtVfplZpOr6nLAprM2OCtg"
+token = ""
 
 # database
 DATABASE_NAME  = "postgres"
